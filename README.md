@@ -1,3 +1,21 @@
+<p>	
+	<a href="https://github.com/cockroachlabs-field/kafka-demo/actions/workflows/maven.yml"><img src="https://github.com/cockroachlabs-field/kafka-demo/actions/workflows/maven.yml/badge.svg?branch=main" alt="">
+</p>
+
+<!-- TOC -->
+* [About](#about)
+* [Compatibility](#compatibility)
+* [Setup](#setup)
+  * [Prerequisites](#prerequisites)
+  * [Install the JDK](#install-the-jdk)
+  * [Database Setup](#database-setup)
+  * [Building](#building)
+    * [Clone the project](#clone-the-project)
+    * [Build the artifact](#build-the-artifact)
+* [Running](#running)
+* [Terms of Use](#terms-of-use)
+<!-- TOC -->
+
 # About
 
 CockroachDB and Kafka demo through the inbox and outbox patterns.
