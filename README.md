@@ -9,6 +9,7 @@
   * [Prerequisites](#prerequisites)
   * [Install the JDK](#install-the-jdk)
   * [Database Setup](#database-setup)
+  * [Kafka Setup](#kafka-setup)
   * [Building](#building)
     * [Clone the project](#clone-the-project)
     * [Build the artifact](#build-the-artifact)
@@ -25,7 +26,7 @@ CockroachDB and Kafka demo through the inbox and outbox patterns.
 - MacOS
 - Linux
 - JDK 21+ (LTS)
-- CockroachDB v23+
+- CockroachDB v24.3+
 
 # Setup
 
@@ -36,6 +37,10 @@ Things you need to build and run the modules locally.
 - Java 21+ JDK
     - https://openjdk.org/projects/jdk/21/
     - https://www.oracle.com/java/technologies/downloads/#java21
+- CockroachDB v24.3+
+  - https://www.cockroachlabs.com/docs/releases/
+- Kafka
+  - https://kafka.apache.org
 - Git
     - https://git-scm.com/downloads/mac
 
@@ -66,6 +71,39 @@ alternatively, for a secure cluster:
 
 An [enterprise license](https://www.cockroachlabs.com/docs/stable/licensing-faqs.html#obtain-a-license) is needed for some of the chapters that 
 use enterprise features like follower reads and CDC.
+
+## Kafka Setup
+
+You can either use a manged Kafka cluster or a local self-hosted setup. In the latter case,
+just follow the [quickstart](https://kafka.apache.org/quickstart) guidelines to setup
+a vanilla Kafka instance.
+
+Ensure kafka is available to the app services and CockroachDB nodes at the default port `9092`:
+
+    kafka://localhost:9092
+
+Example setup using Kraft:
+
+    curl https://dlcdn.apache.org/kafka/4.0.0/kafka_2.13-4.0.0.tgz -o kafka_2.13-4.0.0.tgz
+    tar -xzf kafka_2.13-4.0.0.tgz
+    ln -s kafka_2.13-4.0.0 current
+    cd current
+    KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
+    bin/kafka-storage.sh format -t $KAFKA_CLUSTER_ID -c config/server.properties
+
+Depending on your network setup you may need to edit the following Socket
+properties in `config/server.properties`:
+
+    listeners=PLAINTEXT://..
+    advertised.listener=PLAINTEXT://
+
+Start daemon:
+
+    bin/kafka-server-start.sh -daemon config/server.properties
+
+Tail a topic, in this case `orders-outbox` (the other topic is `orders-inbox`):
+
+    bin/kafka-console-consumer.sh --topic orders-outbox --from-beginning --bootstrap-server localhost:9092 --property print.key=true
 
 ## Building
 
