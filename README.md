@@ -122,6 +122,12 @@ Run the test starter script which will present a menu of options:
 
     ./run-test.sh
 
+To run the app which just prints received inbox events, run:
+
+    ./run-app.sh
+
+You can configure the jdbc and kafka settings in the shell files.
+
 # Terms of Use
 
 Use of this project is entirely at your own risk and Cockroach Labs makes no guarantees or warranties about its operation.
