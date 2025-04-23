@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +27,9 @@ public class OutboxOrderService implements OrderService {
 
     @Override
     @Transactional
-    @Retryable
+    @Retryable(exceptionExpression = "@exceptionClassifier.shouldRetry(#root)",
+            maxAttempts = 5,
+            backoff = @Backoff(maxDelay = 15_000, multiplier = 1.5))
     @OutboxOperation(aggregateType = "purchase_order")
     public PurchaseOrder placeOrder(PurchaseOrder order) throws BusinessException {
         AssertUtils.assertReadWriteTransaction();

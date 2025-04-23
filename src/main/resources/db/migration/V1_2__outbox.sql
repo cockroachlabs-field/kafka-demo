@@ -13,6 +13,7 @@ create table if not exists outbox
 
 alter table outbox set (ttl_expire_after = '1 hour');
 
+-- Feature toggle for change feeds
 set cluster setting kv.rangefeed.enabled = true;
 
 create changefeed into '${cdc-sink-url}?topic_name=orders-outbox'

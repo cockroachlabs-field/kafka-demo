@@ -78,11 +78,10 @@ You can either use a manged Kafka cluster or a local self-hosted setup. In the l
 just follow the [quickstart](https://kafka.apache.org/quickstart) guidelines to setup
 a vanilla Kafka instance.
 
-Ensure kafka is available to the app services and CockroachDB nodes at the default port `9092`:
+Ensure kafka is available to the app services and CockroachDB nodes. 
+The default url is `kafka://localhost:9092`.
 
-    kafka://localhost:9092
-
-Example setup using Kraft:
+Example setup:
 
     curl https://dlcdn.apache.org/kafka/4.0.0/kafka_2.13-4.0.0.tgz -o kafka_2.13-4.0.0.tgz
     tar -xzf kafka_2.13-4.0.0.tgz
@@ -91,17 +90,17 @@ Example setup using Kraft:
     KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
     bin/kafka-storage.sh format -t $KAFKA_CLUSTER_ID -c config/server.properties
 
-Depending on your network setup you may need to edit the following Socket
+Depending on your network setup you may need to edit the following Socket 
 properties in `config/server.properties`:
 
     listeners=PLAINTEXT://..
     advertised.listener=PLAINTEXT://
 
-Start daemon:
+Start the daemon:
 
     bin/kafka-server-start.sh -daemon config/server.properties
 
-Tail a topic, in this case `orders-outbox` (the other topic is `orders-inbox`):
+Tail any of topics, in this case `orders-outbox` (other one is `orders-inbox`):
 
     bin/kafka-console-consumer.sh --topic orders-outbox --from-beginning --bootstrap-server localhost:9092 --property print.key=true
 

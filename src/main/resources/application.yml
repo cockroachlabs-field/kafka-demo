@@ -41,10 +41,8 @@ spring:
           batch_size: 32
           fetch_size: 32
           batch_versioned_data: true
-          # See: org.hibernate.cfg.BatchSettings
         order_inserts: true
         order_updates: true
-        #        generate_statistics: true
         hql:
           bulk_id_strategy: org.hibernate.hql.spi.id.inline.CteValuesListBulkIdStrategy
         cache:

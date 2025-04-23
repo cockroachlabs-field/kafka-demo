@@ -27,7 +27,7 @@ create table product
 
 create type if not exists shipment_status as enum ('placed', 'confirmed', 'cancelled','delivered');
 
--- Not supported
+-- Not supported yet :/
 -- create cast (varchar as shipment_status) with inout as implicit;
 
 create table purchase_order
@@ -80,6 +80,6 @@ alter table if exists purchase_order
         foreign key (customer_id)
             references customer;
 
--- Foreign key indexes
+-- Dont forget foreign key indexes
 create index fk_order_item_ref_product_idx on purchase_order_item (product_id);
 create index fk_order_ref_customer_idx on purchase_order (customer_id);

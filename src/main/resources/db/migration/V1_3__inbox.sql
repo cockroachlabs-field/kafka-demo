@@ -1,3 +1,6 @@
+-- From a performance standpoint there should be one inbox table per aggregate that
+-- will reduce the number of change feeds per range.
+
 create table if not exists inbox
 (
     id             uuid as ((payload ->> 'id')::UUID) stored,
@@ -6,8 +9,6 @@ create table if not exists inbox
 
     primary key (id)
 );
-
-set cluster setting kv.rangefeed.enabled = true;
 
 create changefeed into '${cdc-sink-url}?topic_name=orders-inbox'
 with diff as
