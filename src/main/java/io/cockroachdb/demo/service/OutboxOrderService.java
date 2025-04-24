@@ -7,6 +7,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.cockroachdb.demo.aspect.OutboxOperation;
@@ -26,7 +27,7 @@ public class OutboxOrderService implements OrderService {
     private OrderRepository orderRepository;
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW) // boundary
     @Retryable(exceptionExpression = "@exceptionClassifier.shouldRetry(#root)",
             maxAttempts = 5,
             backoff = @Backoff(maxDelay = 15_000, multiplier = 1.5))

@@ -15,7 +15,7 @@ import io.cockroachdb.demo.repository.EventRepository;
 import io.cockroachdb.demo.repository.ProductRepository;
 
 @ActiveProfiles({"verbose"})
-@SpringBootTest(classes = {DemoApplication.class})
+@SpringBootTest(classes = {KafkaDemo.class})
 public class InboxPatternTest extends AbstractIntegrationTest {
     @Autowired
     @Qualifier("inboxJdbcRepository")

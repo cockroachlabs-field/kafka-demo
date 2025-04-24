@@ -3,15 +3,12 @@ package io.cockroachdb.demo.aspect;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.util.Assert;
 
 import io.cockroachdb.demo.repository.EventRepository;
 
-@Component
 @Aspect
 @Order(OutboxAspect.PRECEDENCE)
 public class OutboxAspect {
@@ -19,9 +16,7 @@ public class OutboxAspect {
 
     private final EventRepository eventRepository;
 
-    public OutboxAspect(
-            @Qualifier("outboxJdbcRepository")
-            EventRepository eventRepository) {
+    public OutboxAspect(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
     }
 

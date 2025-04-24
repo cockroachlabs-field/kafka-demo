@@ -19,11 +19,11 @@ public class InboxChangeFeedListener {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @KafkaListener(id = "inbox-demo", topics = "orders-inbox",
-            groupId = "orders-inbox",
+    @KafkaListener(id = "inbox-demo",
+            topics = "orders-inbox",
+            groupId = "inbox-events",
             properties = {"spring.json.value.default.type=io.cockroachdb.demo.model.PurchaseOrderEvent"})
-    public void onPurchaseOrderEvent(PurchaseOrderEvent event)
-            throws JsonProcessingException {
+    public void onPurchaseOrderEvent(PurchaseOrderEvent event) throws JsonProcessingException {
         logger.info("Received inbox event: {}",
                 objectMapper.writer(new DefaultPrettyPrinter())
                         .writeValueAsString(event));

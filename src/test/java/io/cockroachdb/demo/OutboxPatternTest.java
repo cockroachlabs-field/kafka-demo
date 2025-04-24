@@ -14,7 +14,7 @@ import io.cockroachdb.demo.repository.ProductRepository;
 import io.cockroachdb.demo.service.OrderService;
 
 @ActiveProfiles({"verbose"})
-@SpringBootTest(classes = {DemoApplication.class})
+@SpringBootTest(classes = {KafkaDemo.class})
 public class OutboxPatternTest extends AbstractIntegrationTest {
     @Autowired
     private OrderService orderService;

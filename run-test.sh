@@ -41,12 +41,12 @@ if [ -n "$db_url" ]; then
   -Dspring.datasource.password=${db_password} \
   -Dspring.profiles.active="${spring_profile}" \
   -Dspring.kafka.bootstrap-servers="${bootstrap_servers}" \
-  -Dspring.flyway.placeholders.cdc-sink-url="${bootstrap_servers}" \
+  -Dspring.flyway.placeholders.cdc-sink-url="kafka://${bootstrap_servers}" \
   test
 else
 ./mvnw -DskipTests=false -Dgroups=it-test -Dtest=$testClass \
   -Dspring.profiles.active="${spring_profile}" \
   -Dspring.kafka.bootstrap-servers="${bootstrap_servers}" \
-  -Dspring.flyway.placeholders.cdc-sink-url="${bootstrap_servers}" \
+  -Dspring.flyway.placeholders.cdc-sink-url="kafka://${bootstrap_servers}" \
   test
 fi

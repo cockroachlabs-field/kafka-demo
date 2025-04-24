@@ -9,8 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import io.cockroachdb.demo.aspect.AdvisorOrder;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "io.cockroachdb.demo",
-        enableDefaultTransactions = true)
+@EnableJpaRepositories(basePackages = "io.cockroachdb.demo")
 @EnableTransactionManagement(proxyTargetClass = true, order = AdvisorOrder.TRANSACTION_MANAGER_ADVISOR)
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 public class TransactionConfig {

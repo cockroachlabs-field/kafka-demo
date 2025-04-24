@@ -3,6 +3,8 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 ########################
 spring:
+  profiles:
+    active: default
   output:
     ansi:
       enabled: ALWAYS
@@ -13,7 +15,7 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       auto-offset-reset: earliest
-      group-id: inbox
+      group-id: inbox-events
       properties:
         spring.json.trusted.packages: "*"
     producer:

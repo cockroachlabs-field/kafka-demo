@@ -17,12 +17,12 @@ if [ -n "$db_url" ]; then
   -Dspring.datasource.password=${db_password} \
   -Dspring.profiles.active="${spring_profile}" \
   -Dspring.kafka.bootstrap-servers="${bootstrap_servers}" \
-  -Dspring.flyway.placeholders.cdc-sink-url="${bootstrap_servers}" \
+  -Dspring.flyway.placeholders.cdc-sink-url="kafka://${bootstrap_servers}" \
   $*
 else
   java -jar target/kafka-demo.jar \
   -Dspring.profiles.active="${spring_profile}" \
   -Dspring.kafka.bootstrap-servers="${bootstrap_servers}" \
-  -Dspring.flyway.placeholders.cdc-sink-url="${bootstrap_servers}" \
+  -Dspring.flyway.placeholders.cdc-sink-url="kafka://${bootstrap_servers}" \
   $*
 fi
